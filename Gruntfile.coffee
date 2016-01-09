@@ -15,23 +15,26 @@ module.exports = (grunt) ->
 
 		browserify:
 			dev:
-				files: '.tmp/bundle.js': [ 'src/index.js']
+				files: '.tmp/bundle.js': [ 'src/index.ts']
 				options:
 					watch: true
 					browserifyOptions: { debug: true }
 					transform: [
-						'hintify'
 						[ 'stringify', 'extensions': [ '.html' ] ]
 						'envify'
 					]
 			www:
 				files: '.tmp/bundle.js': [ 'src/index.js']
 				options: transform: [
-					'hintify'
 					[ 'stringify', 'extensions': [ '.html' ], "minify": true, ]
 					'envify'
 					'uglifyify'
 				]
+			options:
+				plugin: [
+					'tsify'
+				]
+
 
 		clean:
 			www: files: [ dot: true, src: [ 'www/*','!www/.git' ], ]
